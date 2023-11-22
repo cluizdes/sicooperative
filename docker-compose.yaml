@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: sicoop_bd
+      MYSQL_USER: sicoop
+      MYSQL_PASSWORD: sicoop
+    ports:
+      - "3309:3309"
+    networks:
+      - mysql-net
+
+  spark:
+    image: jupyter/pyspark-notebook:latest
+    ports:
+      - "8888:8888"
+    volumes:
+      - /path/to/your/code:/home/jovyan/work
+    depends_on:
+      - mysql
+    networks:
+      - mysql-net
+
+networks:
+  mysql-net:
+    driver: bridge
