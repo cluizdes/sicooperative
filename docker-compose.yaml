@@ -10,6 +10,11 @@ services:
       MYSQL_PASSWORD: sicoop
     ports:
       - "3309:3309"
+    volumes:
+      - ./data:/home/jovyan/work/data
+      - ./sh_init:/home/jovyan/work/sh
+    command:
+      sh /home/jovyan/work/sh/sql_init.sh
     networks:
       - mysql-net
 
@@ -18,11 +23,17 @@ services:
     ports:
       - "8888:8888"
     volumes:
-      - /path/to/your/code:/home/jovyan/work
+      - ./jars:/home/jovyan/work/jars
+      - ./spark_script:/home/jovyan/work/scripts/
+      - ./sh_init:/home/jovyan/work/sh
+    command:
+      sh /home/jovyan/work/sh/spark.sh
     depends_on:
       - mysql
     networks:
       - mysql-net
+    links:
+      - mysql:mysql
 
 networks:
   mysql-net:
