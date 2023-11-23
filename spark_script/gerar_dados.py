@@ -4,10 +4,10 @@ from random import randint
 
 # Conectar ao banco de dados MySQL
 conexao = mysql.connector.connect(
-    host="seu_host",
-    user="seu_usuario",
-    password="sua_senha",
-    database="seu_banco_de_dados"
+    host="localhost:3309",
+    user="sicoop",
+    password="sicoop",
+    database="sicoop_bd"
 )
 
 cursor = conexao.cursor()
@@ -34,7 +34,7 @@ for _ in range(10):
 # Populando a tabela Movimento
 for _ in range(10):
     cursor.execute("INSERT INTO movimento (vlr_transacao, des_transacao, data_movimento, id_cartao) VALUES (%s, %s, %s, %s)",
-                   (round(random.uniform(1, 1000), 2), fake.text(), fake.date_time_this_decade(), randint(1, 10)))
+                   (round(randint.uniform(1, 1000), 2), fake.text(), fake.date_time_this_decade(), randint(1, 10)))
     conexao.commit()
 
 # Fechar a conexão
