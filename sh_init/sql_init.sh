@@ -11,4 +11,4 @@ mysql_upgrade -uroot -proot123
 service mysql restart
 
 # Executar script SQL no MySQL
-mysql -h localhost -usicoop -psicoop -P 3306 sicoop_bd < /home/jovyan/work/data/gerar_tabelas_bd.sql
+mysql -h mysql -usicoop -psicoop -P 3306 sicoop_bd < /home/jovyan/work/data/gerar_tabelas_bd.sql

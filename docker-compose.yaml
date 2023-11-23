@@ -2,16 +2,17 @@ version: '3.8'
 
 services:
   mysql:
-    image: mysql:5.7
+    image: mysql:latest
     environment:
       MYSQL_ROOT_PASSWORD: root123
       MYSQL_DATABASE: sicoop_bd
       MYSQL_USER: sicoop
       MYSQL_PASSWORD: sicoop
-      MYSQL_HOST: mysql
     ports:
       - "3306:3306"
     volumes:
+      - ./data/mysqld.sock:/var/run/mysqld/mysqld.sock
+      - mysql-data:/var/lib/mysql
       - ./data/gerar_tabelas_bd.sql:/docker-entrypoint-initdb.d/gerar_tabelas.sql
     networks:
       - mysql-net
@@ -22,17 +23,18 @@ services:
       - "8888:8888"
     volumes:
       - ./jars:/home/jovyan/work/jars
-      - ./spark_script:/home/jovyan/work/scripts/
-      - ./sh_init:/home/jovyan/work/sh
+      - ./spark_script:/home/jovyan/work/spark_script/
+      - ./sh_init:/home/jovyan/work/sh_init
     command:
-      sh /home/jovyan/work/sh/spark.sh
+      sh /home/jovyan/work/sh_init/spark.sh
     depends_on:
       - mysql
     networks:
       - mysql-net
-    links:
-      - mysql:mysql
 
 networks:
   mysql-net:
     driver: bridge
+
+volumes:
+  mysql-data:
