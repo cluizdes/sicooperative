@@ -2,13 +2,23 @@ import mysql.connector
 from faker import Faker
 from random import randint
 
-# Conectar ao banco de dados MySQL
-conexao = mysql.connector.connect(
-    host="localhost:3309",
-    user="sicoop",
-    password="sicoop",
-    database="sicoop_bd"
-)
+# Configurações de conexão
+config = {
+    'user': 'sicoop',
+    'password': 'sicoop',
+    'host': 'mysql',
+    'port': 3306,
+    'database': 'sicoop_bd'
+}
+
+try:
+    # Conectar ao servidor MySQL
+    conexao = mysql.connector.connect(**config)
+
+    # Executar suas operações aqui
+
+except mysql.connector.Error as err:
+    print(f"Erro: {err}")
 
 cursor = conexao.cursor()
 fake = Faker()

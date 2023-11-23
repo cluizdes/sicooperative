@@ -8,7 +8,7 @@ spark = SparkSession.builder \
 
 # Configurações do MySQL
 mysql_options = {
-    "url": "jdbc:mysql://localhost:3309/sicoop_bd",
+    "url": "jdbc:mysql://mysql:3306/sicoop_bd",  # Alterado o host para o nome do serviço no Docker Compose
     "driver": "com.mysql.cj.jdbc.Driver",
     "dbtable": "sicoop_bd",
     "user": "sicoop",

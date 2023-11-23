@@ -1,20 +1,18 @@
-version: '3.7'
+version: '3.8'
 
 services:
   mysql:
-    image: mysql:latest
+    image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: root123
       MYSQL_DATABASE: sicoop_bd
       MYSQL_USER: sicoop
       MYSQL_PASSWORD: sicoop
+      MYSQL_HOST: mysql
     ports:
-      - "3309:3309"
+      - "3306:3306"
     volumes:
-      - ./data:/home/jovyan/work/data
-      - ./sh_init:/home/jovyan/work/sh
-    command:
-      sh /home/jovyan/work/sh/sql_init.sh
+      - ./data/gerar_tabelas_bd.sql:/docker-entrypoint-initdb.d/gerar_tabelas.sql
     networks:
       - mysql-net
 
